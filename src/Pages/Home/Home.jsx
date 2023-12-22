@@ -1,16 +1,9 @@
-import Advantage from "../../Components/Advantage/Advantage";
-import BannarBottom from "../../Components/Bannar-bottom/BannarBottom";
-import Bannar from "../../Components/Bannar/Bannar";
-
 const Home = () => {
-    return (
-        <div>
-            <Bannar></Bannar>
-            <BannarBottom></BannarBottom>
-            <Advantage></Advantage>
-            
-        </div>
-    );
-};
+  return (
+    <div>
+      <h1>Welcome to SRTodo App</h1>
+    </div>
+  )
+}
 
-export default Home; 
+export default Home
