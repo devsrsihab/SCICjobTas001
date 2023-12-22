@@ -12,12 +12,11 @@ const Banner = () => {
               </div>
               <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold tracking-tight text-slate-700 sm:text-5xl sm:leading-snug">
                 An inspiring new future <br />
-                for
-                <span className="inline-block text-cyan-500">Web 3.0</span>
+                for {' '}
+                <span className="inline-block text-cyan-500"> SR TODO 1.0.1</span>
               </h2>
               <p className="text-base text-gray-700 md:text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos,
-                consequuntur quaerat! Optio.
+               resently we have release our awesome feature for to do app. let have a look what is new of feature list
               </p>
             </div>
             <div className="flex items-center">
@@ -25,8 +24,7 @@ const Banner = () => {
                 href="/"
                 className="mr-6 inline-flex h-12 items-center justify-center rounded bg-cyan-500 px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-cyan-400 focus:ring"
               >
-                {" "}
-                Get started{" "}
+               Let’s Explore
               </a>
               <a
                 href="/"

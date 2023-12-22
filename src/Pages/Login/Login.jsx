@@ -52,7 +52,7 @@ const Login = () => {
           <div>
             <button
               type='submit'
-              className='bg-rose-500 w-full rounded-md py-3 text-white'
+              className='bg-accent w-full rounded-md py-3 text-white'
             >
               Continue
             </button>
