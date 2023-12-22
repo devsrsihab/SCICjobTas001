@@ -1,7 +1,10 @@
+import Banner from "../../components/home/banner"
+
 const Home = () => {
   return (
     <div>
-      <h1>Welcome to SRTodo App</h1>
+      {/* banner */}
+      <Banner/>
     </div>
   )
 }
