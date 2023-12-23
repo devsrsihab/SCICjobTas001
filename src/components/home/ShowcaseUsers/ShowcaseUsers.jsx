@@ -7,12 +7,12 @@ import { FaUserDoctor } from "react-icons/fa6";
 const ShowcaseUsers = () => {
   return (
     <>
-      <section className="bg-blue-500 py-10 leading-6 text-blue-900 sm:py-16 lg:py-24">
+      <section className="bg-primary py-10 leading-6 text-blue-900 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="relative max-w-xl">
             <span className="absolute -top-4 h-2 w-14 bg-white" />
             <h2 className="text-xl font-medium leading-9 text-white sm:text-3xl sm:leading-tight">
-              Impressive Results in 2 Years
+              Impressive User Type in 2 Years
             </h2>
             {/* <p class="text-white ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae enim cupiditate necessitatibus tempore molestias?</p> */}
           </div>
