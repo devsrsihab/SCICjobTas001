@@ -1,13 +1,30 @@
 import { useState } from "react";
 import TaskModal from "./AddTaskModal";
+import { getAllTasks } from "../../../apis/task";
+import useAuth from "../../../hooks/useAuth";
+import TaskDataRows from "./TaskDataRows";
+import { useQuery } from "@tanstack/react-query";
 
 const TaskCreation = () => {
-  let [isOpen, setIsOpen] = useState(false);
+  // auth context
+  const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState('');
+
+  const {isLoading, data: tasks ,refetch  } = useQuery({
+  queryKey:'tasks',
+  queryFn: () => getAllTasks(user.email)
+  })
+  
+
+
 
   // hanlde modal
   const handleOPenModal = () => {
     setIsOpen(true);
   };
+
+
 
   return (
     <>
@@ -15,7 +32,7 @@ const TaskCreation = () => {
         <div className="items-start justify-between md:flex">
           <div className="max-w-lg ">
             <h3 className="text-gray-800  text-xl font-bold sm:text-2xl">
-              {/* {` Total Sale Collection ${saleCollections.length} `} */}
+              {/* {` Total Sale Collection ${tasks.length} `} */}
               Task Creation
             </h3>
           </div>
@@ -33,7 +50,7 @@ const TaskCreation = () => {
           <div className="w-full">
             <form autoComplete="off">
               <input
-                //   onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 name="search"
                 placeholder="Search..."
@@ -55,8 +72,11 @@ const TaskCreation = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 divide-y">
-              {/* {
-            saleCollections
+              {
+                isLoading ? <div>Loading...</div> : null
+              }
+              {
+            tasks
             ?.filter((item)=> {
               return search.toLowerCase() === ''
                ? item
@@ -64,19 +84,19 @@ const TaskCreation = () => {
 
             })
             
-            .map((saleCollection) => (
-              <SaleDataRows
-                key={saleCollection._id}
-                saleCollection={saleCollection}
+            .map((task) => (
+              <TaskDataRows
+                key={task._id}
+                task={task}
               />
-            ))} */}
+            ))}
             </tbody>
           </table>
         </div>
       </div>
 
       {/* modal box */}
-      <TaskModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <TaskModal refetch={refetch} isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

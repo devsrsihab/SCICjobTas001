@@ -4,7 +4,7 @@ import axiosSecure from "./Index"
 //      BUILDING CRUD
 // ===========================
 
-// 1. CREATE THE BUILDING API
+// 1. CREATE THE TASKS API
 export const createTask = async data => {    
     // user info
     const createTask = {
@@ -15,11 +15,11 @@ export const createTask = async data => {
     
 }
 
-// // 2. SHOW THE BUILDING API FOR SPECIFIC USER
-// export const getAllBuildings = async (email) => {
-//     const {data} = await axiosSecure(`/buildings/${email}`)
-//     return data
-// }
+// 2. SHOW THE TASKS API FOR SPECIFIC USER
+export const getAllTasks = async (email) => {
+    const {data} = await axiosSecure(`/tasks/${email}`)
+    return data
+}
 
 // // 3. SHOW THE SINGLE BUILDING
 // export const getSingleBuilding = async (id) => {

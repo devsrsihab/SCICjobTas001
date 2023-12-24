@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 import { createTask } from "../../../apis/task";
 import toast from "react-hot-toast";
 
-const AddTaskModal = ({ isOpen, setIsOpen }) => {
+const AddTaskModal = ({ refetch, isOpen, setIsOpen }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +39,7 @@ const AddTaskModal = ({ isOpen, setIsOpen }) => {
       await createTask(formData);
       form.reset();
       setIsOpen(false);
+      refetch();
       toast.success("Task created successfully!");
     } catch (err) {
       console.error(err);
@@ -174,6 +175,7 @@ const AddTaskModal = ({ isOpen, setIsOpen }) => {
 AddTaskModal.propTypes = {
   isOpen: PropTypes.bool,
   setIsOpen: PropTypes.func,
+  refetch: PropTypes.func,
 };
 
 export default AddTaskModal;
