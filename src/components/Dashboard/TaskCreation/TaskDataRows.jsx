@@ -84,10 +84,10 @@ const TaskDataRows = ({ task }) => {
       <td className="px-6 py-4 whitespace-nowrap">{priorities}</td>
       <td className=" px-6 whitespace-nowrap">
         <div className="action-buttons flex gap-3 text-xl ">
-          <div className="icon bg-primary flex items-center justify-center text-white  rounded p-2">
+          <div className="icon cursor-pointer bg-primary flex items-center justify-center text-white  rounded p-2">
           <FaRegEdit />
           </div>
-          <div className="icon bg-green-500 flex items-center justify-center text-white  rounded p-2">
+          <div className="icon cursor-pointer bg-green-500 flex items-center justify-center text-white  rounded p-2">
           <FaCheckDouble  />
           </div>
    

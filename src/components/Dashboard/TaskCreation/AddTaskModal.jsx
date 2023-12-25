@@ -4,14 +4,26 @@ import { Fragment, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { createTask } from "../../../apis/task";
 import toast from "react-hot-toast";
+import {  useMutation, useQueryClient } from "@tanstack/react-query";
 
-const AddTaskModal = ({ refetch, isOpen, setIsOpen }) => {
+const AddTaskModal = ({  isOpen, setIsOpen }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+  
+  const queryClient = useQueryClient()
+  const mutation = useMutation({
+    mutationFn: (newTask) => {
+      return  createTask(newTask);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['tasks']}); // Replace 'tasks' with your actual queryKey
+    },
+  })
+
 
   const handleAddTaskForm = async (e) => {
     e.preventDefault();
@@ -35,11 +47,9 @@ const AddTaskModal = ({ refetch, isOpen, setIsOpen }) => {
       };
 
       console.table(formData);
-
-      await createTask(formData);
+      mutation.mutate(formData);
       form.reset();
       setIsOpen(false);
-      refetch();
       toast.success("Task created successfully!");
     } catch (err) {
       console.error(err);
@@ -175,7 +185,6 @@ const AddTaskModal = ({ refetch, isOpen, setIsOpen }) => {
 AddTaskModal.propTypes = {
   isOpen: PropTypes.bool,
   setIsOpen: PropTypes.func,
-  refetch: PropTypes.func,
 };
 
 export default AddTaskModal;

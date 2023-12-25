@@ -11,9 +11,12 @@ const TaskCreation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
 
-  const {isLoading, data: tasks ,refetch  } = useQuery({
-  queryKey:'tasks',
-  queryFn: () => getAllTasks(user.email)
+  const {isLoading, data: tasks , isFetching } = useQuery({
+  // enabled: user.email ,
+  queryKey:['tasks'],
+  queryFn: () => getAllTasks(user.email),
+  enabled: !!user.email, // Enable the query only if user.email exists
+
   })
   
 
@@ -96,7 +99,7 @@ const TaskCreation = () => {
       </div>
 
       {/* modal box */}
-      <TaskModal refetch={refetch} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <TaskModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };
