@@ -21,17 +21,17 @@ export const getAllTasks = async (email) => {
     return data
 }
 
-// // 3. SHOW THE SINGLE BUILDING
-// export const getSingleBuilding = async (id) => {
-//     const {data} = await axiosSecure(`/building/${id}`)
-//     return data
-// }
+// 3. SHOW THE SINGLE BUILDING
+export const getSingleTask = async (id) => {
+    const {data} = await axiosSecure(`/singleTask/${id}`)
+    return data
+}
 
-// // 4. UPDATE THE BUILDING
-// export const makeBuildingUpdate = async (id,buildingData) => {
-//     const {data} = await axiosSecure.put(`/building/${id}`,buildingData)
-//     return data
-// }
+// 4. UPDATE THE BUILDING
+export const makeTaskUpdate = async (id,taskData) => {
+    const {data} = await axiosSecure.put(`/task/${id}`,taskData)
+    return data
+}
 
 // // 5. DELETE THE BUILDING
 // export const makeBuildingDelete = async (id) => {

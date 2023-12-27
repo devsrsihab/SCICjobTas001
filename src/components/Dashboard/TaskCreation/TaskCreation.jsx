@@ -1,33 +1,42 @@
 import { useState } from "react";
-import TaskModal from "./AddTaskModal";
-import { getAllTasks } from "../../../apis/task";
+import AddTaskModal from "./AddTaskModal";
+import { getAllTasks, getSingleTask } from "../../../apis/task";
 import useAuth from "../../../hooks/useAuth";
 import TaskDataRows from "./TaskDataRows";
 import { useQuery } from "@tanstack/react-query";
+import EditTaskModal from "./EditTaskModal";
+import { ImSpinner10 } from "react-icons/im";
 
 const TaskCreation = () => {
   // auth context
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState('');
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [edtiTaskData, setEdtiTaskData] = useState([]);
 
-  const {isLoading, data: tasks , isFetching } = useQuery({
-  // enabled: user.email ,
-  queryKey:['tasks'],
-  queryFn: () => getAllTasks(user.email),
-  enabled: !!user.email, // Enable the query only if user.email exists
+  const { isLoading, data: tasks } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: () => getAllTasks(user.email),
+    enabled: !!user.email, // Enable the query only if user.email exists
+  });
 
-  })
-  
-
-
+  // edit a task data
+  const handleTaskEditData = (id) => {
+    getSingleTask(id)
+      .then((res) => {
+        setEdtiTaskData(res);
+        setIsEditOpen(true)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   // hanlde modal
   const handleOPenModal = () => {
     setIsOpen(true);
   };
-
-
 
   return (
     <>
@@ -74,32 +83,37 @@ const TaskCreation = () => {
                 <th className="py-3 px-6">Action</th>
               </tr>
             </thead>
-            <tbody className="text-gray-600 divide-y">
-              {
-                isLoading ? <div>Loading...</div> : null
-              }
-              {
-            tasks
-            ?.filter((item)=> {
-              return search.toLowerCase() === ''
-               ? item
-               : item._id.includes(search)
+            <tbody className="text-gray-600 divide-y relative  ">
+            {isLoading &&  <div className="loader bg-black/20 absolute h-28 flex items-center justify-center w-full ">
+              <ImSpinner10 className="text-4xl animate-spin " />
+            </div> }
 
-            })
-            
-            .map((task) => (
-              <TaskDataRows
-                key={task._id}
-                task={task}
-              />
-            ))}
+   
+              
+              {tasks
+                ?.filter((item) => {
+                  return search.toLowerCase() === ""
+                    ? item
+                    : item._id.includes(search);
+                })
+
+                .map((task) => (
+                  <TaskDataRows
+                    key={task._id}
+                    task={task}
+                    handleTaskEditData={handleTaskEditData}
+                  />
+                ))}
             </tbody>
           </table>
         </div>
       </div>
 
       {/* modal box */}
-      <TaskModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddTaskModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      {/* edit modal */}
+      <EditTaskModal edtiTaskData={edtiTaskData} isEditOpen={isEditOpen} setIsEditOpen={setIsEditOpen} />
+  
     </>
   );
 };
